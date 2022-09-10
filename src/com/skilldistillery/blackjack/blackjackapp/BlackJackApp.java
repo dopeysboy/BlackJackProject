@@ -14,10 +14,15 @@ import com.skilldistillery.blackjack.entities.Player;
 public class BlackJackApp {
 
 	private Dealer dealer = new Dealer(1000);
-	private Player usr = new Player(100);
+	private Player usr = new Player(100, dealer);
 	private Scanner kb = new Scanner(System.in);
+	
 	//if the user quits, will end the game
 	private boolean isRunning = true;
+	//game is running until this boolean says false
+	private boolean gameLoop = true;
+	//game starts with the player still hitting, so will not show the dealer's full hand, just the first card
+	private boolean playerStay = false;
 	
 	public static void main(String[] args) {
 		BlackJackApp app = new BlackJackApp();
@@ -25,11 +30,12 @@ public class BlackJackApp {
 	}
 
 	public void run() {
-//		while(isRunning) {
-//			printMain();
-//			getUserInput();
-//		}
-		playGame();
+		while(isRunning) {
+			printMain();
+			getMenuInput();
+		}
+			
+		kb.close();
 	}
 	
 	public void printMain() {
@@ -43,7 +49,7 @@ public class BlackJackApp {
 		System.out.println(sb.toString());
 	}
 	
-	public void getUserInput() {
+	public void getMenuInput() {
 		String tempUsrInput = kb.nextLine();
 		try {
 			int usrInput = Integer.parseInt(tempUsrInput);
@@ -76,10 +82,17 @@ public class BlackJackApp {
 	public void playGame() {
 		dealer.newPlayer(usr);
 		dealer.dealOpening();
-		System.out.println(usr);
+
+		while(gameLoop) {
+			//show player opening deal
+			//get if user wants to hit or stay
+			printTable();
+			gameLogic();
+			getGameInput();
+		}
 	}
-	
 	//TODO give user the rules
+	//TODO wait until user input to close rules menu
 	public void printRules() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("TODO: give the user the rules");
@@ -87,5 +100,97 @@ public class BlackJackApp {
 		System.out.println(sb.toString());
 	}
 
+	//TODO pretty table ascii art
+	public void printTable() {
+		System.out.println("Dealer: ");
+		System.out.println(dealer.showHand(playerStay));
+		System.out.println("*******");
+		System.out.println("You: ");
+		System.out.println(usr);
+	}
 	
+	public void printChoices() {
+		System.out.print("1. Hit\t2. Stay");
+	}
+	
+	public void gameLogic() {
+		//auto game end logic
+		if(usr.getHandValue() == 21) {
+			System.out.println("BLACK JACK");
+			gameLoop = false;
+		} else if (usr.getHandValue() > 21) {
+			System.err.println("BUST");
+			gameLoop = false;
+		}
+		
+		//player is done hitting
+		if(playerStay) {
+			dealerLogic();
+		}
+		
+	}
+	
+	public void dealerLogic() {
+		while(dealer.getHandValue() < 17) {
+			dealer.dealCard(dealer);
+			printTable();
+		}
+		
+		if(dealer.getHandValue() == 21) {
+			System.err.println("BLACK JACK, YOU LOSE");
+		} else if(dealer.getHandValue() > 21) {
+			System.out.println("DEALER BUST, YOU WIN");
+		} else if(dealer.getHandValue() < usr.getHandValue()) {
+			System.out.println("YOU WIN");
+		} else if(dealer.getHandValue() > usr.getHandValue()) {
+			System.err.println("YOU LOSE");
+		} else if(dealer.getHandValue() == usr.getHandValue()) {
+			System.out.println("PUSH");
+		}
+		
+		gameLoop = false;
+	}
+	
+	public void getGameInput() {
+		if(gameLoop) {	
+			boolean goodChoice = false;
+				
+			while(!goodChoice) {
+				printChoices();
+				
+				String tempUsrInput = kb.nextLine();
+				
+				try {
+					int usrInput = Integer.parseInt(tempUsrInput);
+					switch (usrInput) {
+						case 1:
+							usr.hit();
+							goodChoice = true;
+							break;
+						case 2:
+							playerStay = true;
+							goodChoice = true;
+							break;
+						default:
+							System.err.println("Please enter 1, 2, Hit or Stay");
+							break;
+					}
+				} catch (NumberFormatException e) {
+					switch(tempUsrInput.toUpperCase()) {
+						case "HIT":
+							usr.hit();
+							goodChoice = true;
+							break;
+						case "STAY":
+							playerStay = true;
+							goodChoice = true;
+							break;
+						default:
+							System.err.println("Please enter 1, 2, Hit or Stay");
+							break;
+					}
+				}
+			}
+		}
+	}
 }

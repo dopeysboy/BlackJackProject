@@ -40,4 +40,13 @@ public class Dealer extends Player{
 	public void newPlayer(Player p) {
 		table.addPlayer(p);
 	}
+	
+	public String showHand(boolean playerStay) {
+		//if the player is done hitting, show whole hand
+		if(playerStay) {
+			return this.toString();
+		} else {
+			return hand.getCards().get(0).toString() + "\t***";
+		}
+	}
 }

@@ -5,15 +5,21 @@ import com.skilldistillery.blackjack.common.Card;
 public class Player {
 	protected int chips;
 	protected BlackjackHand hand = new BlackjackHand();
+	protected Dealer dealer;
 	
 	public Player() {}
 	
-	public Player(int chips) {
+	public Player(int chips, Dealer dealer) {
 		this.chips = chips;
+		this.dealer = dealer;
 	}
 	
 	public void addCardToHand(Card card) {
 		hand.addCard(card);
+	}
+	
+	public int getHandValue() {
+		return hand.getHandValue();
 	}
 	
 	public int getChips() {
@@ -35,13 +41,9 @@ public class Player {
 	
 	//tell dealer to deal to me
 	public void hit() {
-		
+		dealer.dealCard(this);
 	}
-	
-	public void stay() {
-		
-	}
-	
+
 	public void split() {
 		
 	}
