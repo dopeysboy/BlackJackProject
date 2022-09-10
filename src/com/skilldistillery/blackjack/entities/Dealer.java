@@ -26,6 +26,8 @@ public class Dealer extends Player{
 	
 	//deals two cards to each player
 	public void dealOpening() {
+		this.deck = new Deck(NUMBER_DECKS);
+		clearHands();
 		for(int i = 0; i < 2; i++) {	
 			for(Player p : table.getPlayers()) {
 				p.addCardToHand(deck.dealCard());
@@ -41,12 +43,17 @@ public class Dealer extends Player{
 		table.addPlayer(p);
 	}
 	
+	public void clearHands() {
+		for(Player p : table.getPlayers()) {
+			p.clearHand();
+		}
+	}
 	public String showHand(boolean playerStay) {
 		//if the player is done hitting, show whole hand
-		if(playerStay) {
+		//if(playerStay) {
 			return this.toString();
-		} else {
-			return hand.getCards().get(0).toString() + "\t***";
-		}
+		//} else {
+		//	return hand.getCards().get(0).toString() + "\t***";
+		//}
 	}
 }

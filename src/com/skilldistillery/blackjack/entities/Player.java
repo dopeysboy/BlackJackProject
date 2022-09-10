@@ -19,11 +19,23 @@ public class Player {
 	}
 	
 	public int getHandValue() {
-		return hand.getHandValue();
+		return hand.isHard();
 	}
 	
 	public int getChips() {
 		return chips;
+	}
+	
+	public void clearHand() {
+		this.hand = new BlackjackHand();
+	}
+	
+	public boolean isBust() {
+		return hand.isBust();
+	}
+	
+	public boolean isBlackjack() {
+		return hand.isBlackJack();
 	}
 	
 	public void addChips(int chips) {

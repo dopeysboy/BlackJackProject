@@ -33,11 +33,11 @@ public class BlackjackHand extends Hand{
 	}
 	
 	//if an ace is hard, its worth 11, otherwise its worth 1
-	public boolean isHard() {
-		if(containsAce() && isBust() || containsAce() && isBlackJack()) {
-			return false;
+	public int isHard() {
+		if(containsAce() && isBust()) {
+			return getHandValue() - 11;
 		} else {
-			return true;
+			return getHandValue();
 		}
 	}
 	

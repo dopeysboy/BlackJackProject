@@ -5,11 +5,13 @@ import com.skilldistillery.blackjack.entities.Dealer;
 import com.skilldistillery.blackjack.entities.Player;
 
 /*
- * TODO game logic:
- * 		player can hit until handValue >= 21
- * 		player wins if handValue == 21
- * 		player wins if handValue > dealer.handValue || dealerBusts
- * 		
+ * TODO 
+ * 	softAce
+ * 	multiple players
+ * 	implement bets
+ * 	split hands
+ * 	double down???
+ *  figure out on lose why syserr happens after menu print (seemingly at random)
  */
 public class BlackJackApp {
 
@@ -20,9 +22,9 @@ public class BlackJackApp {
 	//if the user quits, will end the game
 	private boolean isRunning = true;
 	//game is running until this boolean says false
-	private boolean gameLoop = true;
+	private boolean gameLoop;
 	//game starts with the player still hitting, so will not show the dealer's full hand, just the first card
-	private boolean playerStay = false;
+	private boolean playerStay;
 	
 	public static void main(String[] args) {
 		BlackJackApp app = new BlackJackApp();
@@ -30,7 +32,10 @@ public class BlackJackApp {
 	}
 
 	public void run() {
+		dealer.newPlayer(usr);
 		while(isRunning) {
+			gameLoop = true;
+			playerStay = false;
 			printMain();
 			getMenuInput();
 		}
@@ -74,13 +79,9 @@ public class BlackJackApp {
 		}
 	}
 	
-	/*
-	 * TODO does player win or lose
-	 * 		allow player to hit or stay
-	 * 		show table
-	 */
+
 	public void playGame() {
-		dealer.newPlayer(usr);
+
 		dealer.dealOpening();
 
 		while(gameLoop) {
@@ -91,6 +92,7 @@ public class BlackJackApp {
 			getGameInput();
 		}
 	}
+	
 	//TODO give user the rules
 	//TODO wait until user input to close rules menu
 	public void printRules() {
@@ -115,10 +117,10 @@ public class BlackJackApp {
 	
 	public void gameLogic() {
 		//auto game end logic
-		if(usr.getHandValue() == 21) {
+		if(usr.isBlackjack()) {
 			System.out.println("BLACK JACK");
 			gameLoop = false;
-		} else if (usr.getHandValue() > 21) {
+		} else if(usr.isBust()) {
 			System.err.println("BUST");
 			gameLoop = false;
 		}
@@ -136,9 +138,9 @@ public class BlackJackApp {
 			printTable();
 		}
 		
-		if(dealer.getHandValue() == 21) {
+		if(dealer.isBlackjack()) {
 			System.err.println("BLACK JACK, YOU LOSE");
-		} else if(dealer.getHandValue() > 21) {
+		} else if(dealer.isBust()) {
 			System.out.println("DEALER BUST, YOU WIN");
 		} else if(dealer.getHandValue() < usr.getHandValue()) {
 			System.out.println("YOU WIN");
