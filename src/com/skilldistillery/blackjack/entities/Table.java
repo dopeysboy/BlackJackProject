@@ -1,10 +1,11 @@
 package com.skilldistillery.blackjack.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Table {
 	private int pot;
-	private List<Player> players;
+	private List<Player> players = new ArrayList<>();
 	
 	public Table() {}
 	

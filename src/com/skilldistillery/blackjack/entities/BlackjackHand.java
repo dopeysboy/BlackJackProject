@@ -1,7 +1,5 @@
 package com.skilldistillery.blackjack.entities;
 
-import java.util.List;
-
 import com.skilldistillery.blackjack.common.Card;
 import com.skilldistillery.blackjack.common.Hand;
 import com.skilldistillery.blackjack.common.Rank;
@@ -34,6 +32,7 @@ public class BlackjackHand extends Hand{
 		}
 	}
 	
+	//if an ace is hard, its worth 11, otherwise its worth 1
 	public boolean isHard() {
 		if(containsAce() && isBust() || containsAce() && isBlackJack()) {
 			return false;

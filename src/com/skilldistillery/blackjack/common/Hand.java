@@ -34,6 +34,12 @@ public abstract class Hand {
 	
 	@Override
 	public String toString() {
-		return new String();
+		StringBuilder sb = new StringBuilder();
+		for(Card card : cards) {
+			sb.append(card);
+			sb.append("\t");
+		}
+		
+		return sb.toString();
 	}
 }

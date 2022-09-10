@@ -1,13 +1,19 @@
 package com.skilldistillery.blackjack.entities;
 
+import com.skilldistillery.blackjack.common.Card;
+
 public class Player {
 	protected int chips;
-	protected BlackjackHand hand;
+	protected BlackjackHand hand = new BlackjackHand();
 	
 	public Player() {}
 	
 	public Player(int chips) {
 		this.chips = chips;
+	}
+	
+	public void addCardToHand(Card card) {
+		hand.addCard(card);
 	}
 	
 	public int getChips() {
@@ -27,6 +33,7 @@ public class Player {
 		}
 	}
 	
+	//tell dealer to deal to me
 	public void hit() {
 		
 	}
@@ -38,5 +45,9 @@ public class Player {
 	public void split() {
 		
 	}
-
+	
+	@Override
+	public String toString() {
+		return hand.toString();
+	}
 }
