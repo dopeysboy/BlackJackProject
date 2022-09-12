@@ -91,13 +91,12 @@ public class BlackJackApp {
 		}
 	}
 	
-	//TODO give user the rules
 	//TODO wait until user input to close rules menu
 	public void printRules() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("TODO: give the user the rules");
-		
-		System.out.println(sb.toString());
+		System.out.println("The objective of the game is to get as close to \"Blackjack\" (21) as possible without going over and \"Busting\"."
+				+ "\nThe player is allowed to continue \"hitting\" (adding cards to their hand) until they choose to stay or they bust."
+				+ "\nAfter the player stays, the dealer will hit until they reach at least 17 points, after which if no one has bust"
+				+ "\nor gotten 21, the player with more points wins!");
 	}
 
 	//TODO pretty table ascii art
