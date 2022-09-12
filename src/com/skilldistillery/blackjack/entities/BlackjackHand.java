@@ -35,7 +35,7 @@ public class BlackjackHand extends Hand{
 	//if an ace is hard, its worth 11, otherwise its worth 1
 	public int isHard() {
 		if(containsAce() && isBust()) {
-			return getHandValue() - 11;
+			return getHandValue() - 10;
 		} else {
 			return getHandValue();
 		}
