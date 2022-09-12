@@ -6,12 +6,10 @@ import com.skilldistillery.blackjack.entities.Player;
 
 /*
  * TODO 
- * 	softAce
  * 	multiple players
  * 	implement bets
  * 	split hands
- * 	double down???
- *  figure out on lose why syserr happens after menu print (seemingly at random)
+ * 	double down??? however that works
  */
 public class BlackJackApp {
 
@@ -150,6 +148,7 @@ public class BlackJackApp {
 			System.out.println("PUSH");
 		}
 		
+		System.out.flush();
 		gameLoop = false;
 	}
 	

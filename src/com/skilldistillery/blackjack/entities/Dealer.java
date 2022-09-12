@@ -1,6 +1,7 @@
 package com.skilldistillery.blackjack.entities;
 
 import com.skilldistillery.blackjack.common.Deck;
+import com.skilldistillery.blackjack.common.Table;
 
 /*
  * TODO dealer logic ->

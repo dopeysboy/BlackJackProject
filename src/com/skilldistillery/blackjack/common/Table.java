@@ -1,7 +1,9 @@
-package com.skilldistillery.blackjack.entities;
+package com.skilldistillery.blackjack.common;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.skilldistillery.blackjack.entities.Player;
 
 public class Table {
 	private int pot;
