@@ -51,10 +51,10 @@ public class Dealer extends Player{
 	}
 	public String showHand(boolean playerStay) {
 		//if the player is done hitting, show whole hand
-		//if(playerStay) {
+		if(playerStay) {
 			return this.toString();
-		//} else {
-		//	return hand.getCards().get(0).toString() + "\t***";
-		//}
+		} else {
+			return hand.getCards().get(0).toString() + "\t***";
+		}
 	}
 }
